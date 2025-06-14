@@ -12,8 +12,20 @@
             <div class="message">
                 <p class="message-content">{{ mesaj[0] }}</p>
                 <div class="message-meta">
-                    <small>Paylaşım Tarihi: {{ mesaj[1].strftime('%d-%m-%Y %H:%M') }}</small>
-                </div>
+    <span>Gönderen: 
+        <a href="{{ url_for('profil', kullanici_adi=mesaj.kullanici_adi) }}">
+            <strong>{{ mesaj.kullanici_adi }}</strong>
+        </a>
+    </span>
+    <div class="message-actions">
+        <small>Tarih: {{ mesaj.olusturma_tarihi.strftime('%d-%m-%Y %H:%M') }}</small>
+        {% if session.username == mesaj.kullanici_adi %}
+            <form action="{{ url_for('mesaj_sil', mesaj_id=mesaj.id) }}" method="post" style="display: inline;">
+                <button type="submit" class="delete-btn">Sil</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
             </div>
         {% else %}
             <p>Bu kullanıcı henüz hiç paylaşım yapmamış.</p>
