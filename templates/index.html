@@ -19,9 +19,13 @@
                 <div class="message">
                     <p class="message-content">{{ mesaj[1] }}</p>
                     <div class="message-meta">
-                        <span>Gönderen: <strong>{{ mesaj[0] }}</strong></span>
-                        <small>Tarih: {{ mesaj[2].strftime('%d-%m-%Y %H:%M') }}</small>
-                    </div>
+    <span>Gönderen: 
+        <a href="{{ url_for('profil', kullanici_adi=mesaj.kullanici_adi) }}">
+            <strong>{{ mesaj.kullanici_adi }}</strong>
+        </a>
+    </span>
+    <small>Tarih: {{ mesaj.olusturma_tarihi.strftime('%d-%m-%Y %H:%M') }}</small>
+</div>
                 </div>
             {% else %}
                 <p>Henüz hiç mesaj yok. İlk mesajı sen gönder!</p>

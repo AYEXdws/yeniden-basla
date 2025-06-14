@@ -1,116 +1,194 @@
-/* Genel Stiller */
+:root {
+    --primary-color: #2d3748;
+    --secondary-color: #4a5568;
+    --background-color: #f7fafc;
+    --text-color: #1a202c;
+    --card-background: #ffffff;
+    --border-color: #e2e8f0;
+}
+
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: var(--background-color);
+    color: var(--text-color);
     margin: 0;
     line-height: 1.6;
 }
 
-/* Header ve Navigasyon */
-header {
-    background-color: #4a5568;
-    color: #fff;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-header h1 a {
-    color: #fff;
-    text-decoration: none;
-}
-header nav a {
-    color: #fff;
-    margin-left: 1rem;
-    text-decoration: none;
-}
-header nav span {
-    margin-left: 1rem;
-}
-
-/* Ana İçerik Alanı */
 main {
     max-width: 800px;
     margin: 2rem auto;
     padding: 1rem;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Header ve Navigasyon (Hamburger Menü için) */
+.navbar {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-brand a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-links ul {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+}
+
+.navbar-links li {
+    margin-left: 1.5rem;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.navbar-links a:hover {
+    background-color: var(--secondary-color);
+}
+.navbar-links .welcome-msg {
+    align-self: center;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.hamburger .bar {
+    width: 2rem;
+    height: 0.25rem;
+    background-color: white;
+    border-radius: 10px;
 }
 
 /* Form Stilleri */
+h2 {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+form {
+    background: var(--card-background);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
 .form-group label {
     display: block;
     margin-bottom: 0.5rem;
+    font-weight: bold;
 }
 .form-group input, textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ddd;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    box-sizing: border-box; /* Bu, padding'in genişliği etkilememesini sağlar */
+    box-sizing: border-box;
+}
+textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 button[type="submit"] {
-    background-color: #4a5568;
+    display: block;
+    width: 100%;
+    background-color: var(--primary-color);
     color: white;
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s;
 }
 button[type="submit"]:hover {
-    background-color: #2d3748;
+    background-color: #1a202c;
 }
 
-/* Flash Mesajları */
-.flashes {
-    list-style: none;
-    padding: 0;
+/* Mesaj ve Kaynak Listeleri */
+.message-list, .resource-list {
+    margin-top: 2rem;
 }
-.flash {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-}
-.flash.success {
-    background-color: #c6f6d5;
-    color: #22543d;
-}
-.flash.danger {
-    background-color: #fed7d7;
-    color: #822727;
-}
-
-/* Mesaj Panosu */
-.message {
-    border: 1px solid #e2e8f0;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
+.message, .resource-item {
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
 .message-meta {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     color: #718096;
     margin-top: 1rem;
     display: flex;
     justify-content: space-between;
 }
+.message-meta a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+.message-meta a:hover {
+    text-decoration: underline;
+}
 
-/* MOBİL UYUMLULUK (Responsive Tasarım) */
-@media (max-width: 600px) {
-    header {
+/* Flash Mesajları */
+.flashes { padding: 0; list-style: none; }
+.flash { padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
+.flash.success { background-color: #c6f6d5; color: #22543d; }
+.flash.danger { background-color: #fed7d7; color: #822727; }
+
+/* Mobil Uyum (Responsive) */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+    }
+    .navbar-links {
+        display: none;
+        width: 100%;
+        text-align: center;
+    }
+    .navbar-links ul {
         flex-direction: column;
+        width: 100%;
     }
-    header h1 {
-        margin-bottom: 1rem;
+    .navbar-links.active {
+        display: flex;
     }
-    main {
-        margin: 1rem;
-        padding: 0.5rem;
+    .navbar {
+        flex-wrap: wrap;
+    }
+    .navbar-links li {
+        margin: 1rem 0;
     }
 }

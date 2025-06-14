@@ -7,18 +7,30 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <header>
-        <h1><a href="{{ url_for('index') }}">Yeniden Başla</a></h1>
-        <nav>
-            {% if session.user_id %}
-                <span>Hoş geldin, {{ session.username }}!</span>
-                <a href="{{ url_for('cikis') }}">Çıkış Yap</a>
-            {% else %}
-                <a href="{{ url_for('kayit') }}">Kayıt Ol</a>
-                <a href="{{ url_for('giris') }}">Giriş Yap</a>
-            {% endif %}
-        </nav>
-    </header>
+    
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a href="{{ url_for('index') }}">Yeniden Başla</a>
+        </div>
+        <button class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        <div class="navbar-links">
+            <ul>
+                <li><a href="{{ url_for('index') }}">Anasayfa</a></li>
+                <li><a href="{{ url_for('kaynaklar') }}">Kaynaklar</a></li>
+                {% if session.user_id %}
+                    <li class="welcome-msg"><span>Hoş geldin, {{ session.username }}!</span></li>
+                    <li><a href="{{ url_for('cikis') }}">Çıkış Yap</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('kayit') }}">Kayıt Ol</a></li>
+                    <li><a href="{{ url_for('giris') }}">Giriş Yap</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
 
     <main>
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -33,5 +45,15 @@
 
         {% block content %}{% endblock %}
     </main>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.navbar-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+
 </body>
 </html>

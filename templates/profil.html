@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="profile-header">
+        <h2>{{ kullanici[1] }}'nın Profili</h2>
+        <p>Topluluğumuza Katılma Tarihi: {{ kullanici[3].strftime('%d %B %Y') }}</p>
+    </div>
+    <hr>
+    <h3>Kullanıcının Paylaşımları:</h3>
+    <div class="message-list">
+        {% for mesaj in mesajlar %}
+            <div class="message">
+                <p class="message-content">{{ mesaj[0] }}</p>
+                <div class="message-meta">
+                    <small>Paylaşım Tarihi: {{ mesaj[1].strftime('%d-%m-%Y %H:%M') }}</small>
+                </div>
+            </div>
+        {% else %}
+            <p>Bu kullanıcı henüz hiç paylaşım yapmamış.</p>
+        {% endfor %}
+    </div>
+{% endblock %}

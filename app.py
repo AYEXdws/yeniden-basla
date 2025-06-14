@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask import Flask, render_template, request, redirect, url_for, flash, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
 
@@ -16,9 +16,7 @@ def get_db_connection():
 @app.route('/')
 def index():
     conn = get_db_connection()
-    cur = conn.cursor()
-    # Mesajları ve yazan kullanıcıların adlarını birleştirerek alıyoruz.
-    # En yeni mesajın en üstte görünmesi için tarihe göre tersten sıralıyoruz.
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     cur.execute("""
         SELECT kullanicilar.kullanici_adi, mesajlar.icerik, mesajlar.olusturma_tarihi
         FROM mesajlar
@@ -32,6 +30,8 @@ def index():
 
 @app.route('/kayit', methods=['GET', 'POST'])
 def kayit():
+    if 'user_id' in session:
+        return redirect(url_for('index'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -52,11 +52,12 @@ def kayit():
         finally:
             cur.close()
             conn.close()
-            
     return render_template('register.html')
 
 @app.route('/giris', methods=['GET', 'POST'])
 def giris():
+    if 'user_id' in session:
+        return redirect(url_for('index'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -64,51 +65,44 @@ def giris():
         conn = get_db_connection()
         cur = conn.cursor()
         cur.execute("SELECT * FROM kullanicilar WHERE kullanici_adi = %s", (username,))
-        user = cur.fetchone() # Kullanıcıyı bul ve verilerini al
+        user = cur.fetchone()
         cur.close()
         conn.close()
         
-        # Kullanıcı varsa VE şifre doğruysa
         if user and check_password_hash(user[2], password):
-            # Session'a kullanıcının bilgilerini kaydet
             session['user_id'] = user[0]
             session['username'] = user[1]
             flash('Giriş başarılı!', 'success')
             return redirect(url_for('index'))
         else:
             flash('Kullanıcı adı veya şifre yanlış.', 'danger')
-            
     return render_template('login.html')
 
 @app.route('/cikis')
 def cikis():
-    # Session'daki tüm bilgileri temizle
     session.clear()
     flash('Başarıyla çıkış yaptınız.', 'success')
     return redirect(url_for('index'))
-@app.route('/yeni-mesaj', methods=['POST'])
-def yeni_mesaj():
-    # Kullanıcı giriş yapmamışsa, mesaj gönderemez. Giriş sayfasına yönlendir.
-    if 'user_id' not in session:
-        flash('Mesaj göndermek için giriş yapmalısınız.', 'danger')
-        return redirect(url_for('giris'))
 
-    icerik = request.form['icerik']
-    kullanici_id = session['user_id']
-    
+# YENİ EKLENDİ - Profil Sayfası Route'u
+@app.route('/profil/<string:kullanici_adi>')
+def profil(kullanici_adi):
     conn = get_db_connection()
     cur = conn.cursor()
-    cur.execute(
-        "INSERT INTO mesajlar (icerik, kullanici_id) VALUES (%s, %s)",
-        (icerik, kullanici_id)
-    )
-    conn.commit()
+    cur.execute("SELECT * FROM kullanicilar WHERE kullanici_adi = %s", (kullanici_adi,))
+    kullanici = cur.fetchone()
+    if kullanici is None:
+        abort(404)
+    cur.execute("SELECT icerik, olusturma_tarihi FROM mesajlar WHERE kullanici_id = %s ORDER BY olusturma_tarihi DESC", (kullanici[0],))
+    mesajlar = cur.fetchall()
     cur.close()
     conn.close()
-    
-    flash('Mesajın başarıyla gönderildi!', 'success')
-    return redirect(url_for('index'))
-if __name__ == '__main__':
-    app.run(debug=True)
+    return render_template('profil.html', kullanici=kullanici, mesajlar=mesajlar)
+
+# YENİ EKLENDİ - Kaynaklar Sayfası Route'u
+@app.route('/kaynaklar')
+def kaynaklar():
+    return render_template('kaynaklar.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
