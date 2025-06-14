@@ -19,10 +19,12 @@
         </button>
         <div class="navbar-links">
             <ul>
+                {% if session.user_id %}
+                    <li class="welcome-msg"><span>Hoş geldin, {{ session.username }}!</span></li>
+                {% endif %}
                 <li><a href="{{ url_for('index') }}">Anasayfa</a></li>
                 <li><a href="{{ url_for('kaynaklar') }}">Kaynaklar</a></li>
                 {% if session.user_id %}
-                    <li class="welcome-msg"><span>Hoş geldin, {{ session.username }}!</span></li>
                     <li><a href="{{ url_for('cikis') }}">Çıkış Yap</a></li>
                 {% else %}
                     <li><a href="{{ url_for('kayit') }}">Kayıt Ol</a></li>
@@ -47,11 +49,21 @@
     </main>
 
     <script>
+        // Hamburger menüsünü çalıştıracak JavaScript kodu
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.navbar-links');
-
         hamburger.addEventListener('click', () => {
             navLinks.classList.toggle('active');
+        });
+
+        // YENİ EKLENDİ - Bildirimleri otomatik kapatan JavaScript kodu
+        const flashMessages = document.querySelectorAll('.flash');
+        flashMessages.forEach(function(message) {
+            setTimeout(function() {
+                message.classList.add('fade-out');
+                // Efekt bittikten sonra elementi DOM'dan kaldır
+                setTimeout(() => message.remove(), 500);
+            }, 5000); // 5000 milisaniye = 5 saniye
         });
     </script>
 

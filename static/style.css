@@ -1,10 +1,17 @@
+/* YENİ RENK PALETİ VE TASARIM */
+
+/* Renkleri değişken olarak tanımlıyoruz, böylece değiştirmek kolay olur */
 :root {
-    --primary-color: #2d3748;
-    --secondary-color: #4a5568;
-    --background-color: #f7fafc;
-    --text-color: #1a202c;
-    --card-background: #ffffff;
-    --border-color: #e2e8f0;
+    --primary-color: #2c5282; /* Koyu Mavi */
+    --secondary-color: #4a5568; /* Koyu Gri */
+    --background-color: #edf2f7; /* Çok Açık Gri */
+    --text-color: #2d3748; /* Metin Rengi */
+    --card-background: #ffffff; /* Kartların Arkaplanı */
+    --border-color: #e2e8f0; /* Kenarlık Rengi */
+    --success-bg: #c6f6d5;
+    --success-text: #22543d;
+    --danger-bg: #fed7d7;
+    --danger-text: #822727;
 }
 
 body {
@@ -21,10 +28,10 @@ main {
     padding: 1rem;
 }
 
-/* Header ve Navigasyon (Hamburger Menü için) */
+/* YENİ NAVBAR VE HAMBURGER MENÜ TASARIMI */
 .navbar {
-    background-color: var(--primary-color);
-    color: white;
+    background-color: var(--card-background);
+    color: var(--text-color);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -32,10 +39,11 @@ main {
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .navbar-brand a {
-    color: white;
+    color: var(--primary-color);
     text-decoration: none;
     font-size: 1.5rem;
     font-weight: bold;
@@ -45,6 +53,7 @@ main {
     margin: 0;
     padding: 0;
     display: flex;
+    align-items: center;
     list-style: none;
 }
 
@@ -53,18 +62,23 @@ main {
 }
 
 .navbar-links a {
-    color: white;
+    color: var(--secondary-color);
     text-decoration: none;
     font-size: 1rem;
-    padding: 0.5rem;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
 }
 .navbar-links a:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--background-color);
+    color: var(--primary-color);
 }
+/* Hoşgeldin mesajının yeni stili */
 .navbar-links .welcome-msg {
-    align-self: center;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-right: 0.5rem; /* Çıkış yap butonuyla arasına boşluk koyar */
 }
 
 .hamburger {
@@ -82,130 +96,105 @@ main {
 .hamburger .bar {
     width: 2rem;
     height: 0.25rem;
-    background-color: white;
+    background-color: var(--primary-color);
     border-radius: 10px;
 }
 
-/* Form Stilleri */
+/* DİĞER TÜM GÖRSEL İYİLEŞTİRMELER */
 h2 {
     border-bottom: 2px solid var(--primary-color);
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
+    color: var(--primary-color);
 }
 form {
     background: var(--card-background);
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-.form-group {
-    margin-bottom: 1.5rem;
-}
-.form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-}
-.form-group input, textarea {
-    width: 100%;
-    padding: 0.75rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
     border: 1px solid var(--border-color);
-    border-radius: 4px;
-    box-sizing: border-box;
 }
-textarea {
-    min-height: 120px;
-    resize: vertical;
+.form-group { margin-bottom: 1.5rem; }
+.form-group label { display: block; margin-bottom: 0.5rem; font-weight: bold; }
+.form-group input, textarea {
+    width: 100%; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 4px; box-sizing: border-box;
+    transition: box-shadow 0.2s;
 }
-button[type="submit"] {
-    display: block;
-    width: 100%;
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.1rem;
-    font-weight: bold;
-    transition: background-color 0.3s;
+.form-group input:focus, textarea:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(44, 82, 130, 0.3);
 }
-button[type="submit"]:hover {
-    background-color: #1a202c;
-}
+textarea { min-height: 120px; resize: vertical; }
 
-/* Mesaj ve Kaynak Listeleri */
-.message-list, .resource-list {
-    margin-top: 2rem;
+button[type="submit"] {
+    display: block; width: 100%; background-color: var(--primary-color); color: white;
+    padding: 0.75rem 1.5rem; border: none; border-radius: 4px; cursor: pointer;
+    font-size: 1.1rem; font-weight: bold; transition: background-color 0.3s;
 }
+button[type="submit"]:hover { background-color: #1a202c; }
+
+.message-list, .resource-list { margin-top: 2rem; }
 .message, .resource-item {
     background: var(--card-background);
     border: 1px solid var(--border-color);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
+    padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
-.message-meta {
-    font-size: 0.9rem;
-    color: #718096;
-    margin-top: 1rem;
-    display: flex;
-    justify-content: space-between;
+/* UZUN MESAJ TAŞMA HATASI DÜZELTMESİ */
+.message-content {
+    word-wrap: break-word; /* veya overflow-wrap: break-word; */
 }
-.message-meta a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    font-weight: bold;
-}
-.message-meta a:hover {
-    text-decoration: underline;
-}
+.message-meta { font-size: 0.9rem; color: #718096; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
+.message-meta a { color: var(--primary-color); text-decoration: none; font-weight: bold; }
+.message-meta a:hover { text-decoration: underline; }
 
-/* Flash Mesajları */
-.flashes { padding: 0; list-style: none; }
-.flash { padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
-.flash.success { background-color: #c6f6d5; color: #22543d; }
-.flash.danger { background-color: #fed7d7; color: #822727; }
-
-/* Mobil Uyum (Responsive) */
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex;
-    }
-    .navbar-links {
-        display: none;
-        width: 100%;
-        text-align: center;
-    }
-    .navbar-links ul {
-        flex-direction: column;
-        width: 100%;
-    }
-    .navbar-links.active {
-        display: flex;
-    }
-    .navbar {
-        flex-wrap: wrap;
-    }
-    .navbar-links li {
-        margin: 1rem 0;
-    }
-}
-.message-actions {
-    display: flex;
-    align-items: center;
-}
+/* YENİ KÜÇÜK SİLME BUTONU TASARIMI */
 .delete-btn {
-    background-color: #e53e3e; /* Kırmızı */
-    color: white;
-    padding: 0.2rem 0.5rem;
-    border: none;
+    background: none;
+    border: 1px solid var(--danger-text);
+    color: var(--danger-text);
+    padding: 0.1rem 0.4rem;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    font-weight: bold;
     margin-left: 1rem;
+    transition: all 0.2s;
 }
 .delete-btn:hover {
-    background-color: #c53030;
+    background-color: var(--danger-bg);
+}
+
+/* OTOMATİK KAPANAN BİLDİRİM İÇİN EFEKT */
+.flashes { padding: 0; list-style: none; }
+.flash { padding: 1rem; margin-bottom: 1rem; border-radius: 4px; transition: opacity 0.5s ease-out; }
+.flash.fade-out { opacity: 0; } /* Yavaşça kaybolma efekti için class */
+.flash.success { background-color: var(--success-bg); color: var(--success-text); }
+.flash.danger { background-color: var(--danger-bg); color: var(--danger-text); }
+
+/* MOBİL UYUMLULUK */
+@media (max-width: 768px) {
+    .hamburger { display: flex; }
+    .navbar-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: var(--card-background);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .navbar-links.active { display: block; }
+    .navbar-links ul { flex-direction: column; padding: 1rem 0; }
+    .navbar-links li { margin: 1rem 0; text-align: center; }
+    /* Hoş geldin mesajının mobil menüdeki yeni yeri */
+    .navbar-links .welcome-msg {
+        order: -1; /* Bu, hoşgeldin mesajını listenin en üstüne taşır */
+        font-weight: bold;
+        color: var(--primary-color);
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        width: 90%;
+        margin: 0 auto 1rem auto;
+    }
 }
