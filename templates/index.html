@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="message-board">
+        <h2>Tartışma Panosu</h2>
+
+        {# Sadece giriş yapmış kullanıcılar yeni mesaj gönderebilir #}
+        {% if session.user_id %}
+            <div class="new-message-form">
+                <form action="{{ url_for('yeni_mesaj') }}" method="post">
+                    <textarea name="icerik" placeholder="Bağımlılıkla ilgili düşüncelerini veya deneyimlerini paylaş..." required></textarea>
+                    <button type="submit">Gönder</button>
+                </form>
+            </div>
+        {% endif %}
+
+        <div class="message-list">
+            {% for mesaj in mesajlar %}
+                <div class="message">
+                    <p class="message-content">{{ mesaj[1] }}</p>
+                    <div class="message-meta">
+                        <span>Gönderen: <strong>{{ mesaj[0] }}</strong></span>
+                        <small>Tarih: {{ mesaj[2].strftime('%d-%m-%Y %H:%M') }}</small>
+                    </div>
+                </div>
+            {% else %}
+                <p>Henüz hiç mesaj yok. İlk mesajı sen gönder!</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

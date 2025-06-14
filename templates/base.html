@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeniden Başla</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1><a href="{{ url_for('index') }}">Yeniden Başla</a></h1>
+        <nav>
+            {% if session.user_id %}
+                <span>Hoş geldin, {{ session.username }}!</span>
+                <a href="{{ url_for('cikis') }}">Çıkış Yap</a>
+            {% else %}
+                <a href="{{ url_for('kayit') }}">Kayıt Ol</a>
+                <a href="{{ url_for('giris') }}">Giriş Yap</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes">
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
