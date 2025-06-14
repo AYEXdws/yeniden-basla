@@ -1,5 +1,6 @@
 import os
 import psycopg2
+import psycopg2.extras
 from flask import Flask, render_template, request, redirect, url_for, flash, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from dotenv import load_dotenv
