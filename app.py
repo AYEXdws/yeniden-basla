@@ -158,5 +158,4 @@ def mesaj_sil(mesaj_id):
     return redirect(request.referrer or url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)__ == '__main__':
     app.run(debug=True)
