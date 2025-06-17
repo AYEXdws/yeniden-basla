@@ -198,3 +198,53 @@ button[type="submit"]:hover { background-color: #1a202c; }
         margin: 0 auto 1rem auto;
     }
 }
+/* YENİ MESAJ PANOSU TASARIMI STİLLERİ */
+.message-container {
+    display: flex;
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.message-author-info {
+    flex-shrink: 0;
+    width: 120px;
+    text-align: center;
+    margin-right: 1.5rem;
+    word-wrap: break-word;
+}
+
+.author-avatar-placeholder {
+    width: 64px;
+    height: 64px;
+    background-color: var(--border-color);
+    border-radius: 50%;
+    margin: 0 auto 0.5rem auto;
+}
+
+.author-username {
+    font-weight: bold;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.message-content-wrapper {
+    flex-grow: 1;
+}
+
+.message-content {
+    margin-top: 0;
+    word-wrap: break-word; /* Uzun mesajların taşmasını engeller */
+}
+
+/* Silme butonunun formla hizalanması için */
+.message-meta form {
+    padding: 0;
+    background: none;
+    box-shadow: none;
+    border: none;
+}
+
