@@ -14,29 +14,31 @@
             </div>
         {% endif %}
 
-        <div class="message-list">
-            {% for mesaj in mesajlar %}
-                <div class="message">
-                    <p class="message-content">{{ mesaj['icerik'] }}</p>
-                    <div class="message-meta">
-    <span>Gönderen: 
-        <a href="{{ url_for('profil', kullanici_adi=mesaj.kullanici_adi) }}">
-            <strong>{{ mesaj.kullanici_adi }}</strong>
-        </a>
-    </span>
-    <div class="message-actions">
-        <small>Tarih: {{ mesaj.olusturma_tarihi.strftime('%d-%m-%Y %H:%M') }}</small>
-        {% if session.username == mesaj.kullanici_adi %}
-            <form action="{{ url_for('mesaj_sil', mesaj_id=mesaj.id) }}" method="post" style="display: inline;">
-                <button type="submit" class="delete-btn">Sil</button>
-            </form>
-        {% endif %}
-    </div>
-</div>
+       <div class="message-list">
+    {% for mesaj in mesajlar %}
+        <div class="message-container">
+            <div class="message-author-info">
+                <div class="author-avatar-placeholder"></div>
+                <a class="author-username" href="{{ url_for('profil', kullanici_adi=mesaj.kullanici_adi) }}">
+                    <strong>{{ mesaj.kullanici_adi }}</strong>
+                </a>
+            </div>
+            <div class="message-content-wrapper">
+                <p class="message-content">{{ mesaj['icerik'] }}</p>
+                <div class="message-meta">
+                    <small>Tarih: {{ mesaj.olusturma_tarihi.strftime('%d-%m-%Y %H:%M') }}</small>
+                    {% if session.username == mesaj.kullanici_adi %}
+                        <form action="{{ url_for('mesaj_sil', mesaj_id=mesaj.id) }}" method="post" onsubmit="return confirm('Bu mesajı silmek istediğinizden emin misiniz?');">
+                            <button type="submit" class="delete-btn">Sil</button>
+                        </form>
+                    {% endif %}
                 </div>
-            {% else %}
-                <p>Henüz hiç mesaj yok. İlk mesajı sen gönder!</p>
-            {% endfor %}
+            </div>
         </div>
+    {% else %}
+        <p>Henüz hiç mesaj yok. İlk mesajı sen gönder!</p>
+    {% endfor %}
+</div>
+
     </div>
 {% endblock %}
