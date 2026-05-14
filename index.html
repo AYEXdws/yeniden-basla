@@ -1,12 +1,118 @@
 <!doctype html>
 <html lang="tr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Amasya İnteraktif Hikâye</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amasya’da Tarihin Dönüm Noktası</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle, #1b120c, #050403);
+      color: #f3ead7;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .card {
+      max-width: 850px;
+      border: 1px solid #d4a64f;
+      padding: 38px;
+      background: rgba(0,0,0,.45);
+      box-shadow: 0 30px 100px rgba(0,0,0,.6);
+    }
+    .eyebrow { color:#d4a64f; letter-spacing:4px; font-weight:bold; }
+    h1 { font-size: 42px; margin: 10px 0 20px; }
+    p { font-size: 18px; line-height: 1.7; }
+    button {
+      display:block;
+      width:100%;
+      margin-top:14px;
+      padding:16px;
+      background:#2b1b0d;
+      color:#fff2d2;
+      border:1px solid #d4a64f;
+      cursor:pointer;
+      font-size:16px;
+    }
+    button:hover { background:#5a3716; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="eyebrow" id="eyebrow">1919 — AMASYA</div>
+    <h1 id="title">Amasya’da Tarihin Dönüm Noktası</h1>
+    <div id="text"></div>
+    <div id="choices"></div>
+  </div>
+
+  <script>
+    const scenes = [
+      {
+        title: "Amasya’da Tarihin Dönüm Noktası",
+        eyebrow: "1919 — AMASYA",
+        text: [
+          "Mondros Ateşkes Antlaşması’nın ardından Anadolu’nun birçok bölgesi işgal altındadır.",
+          "Sen, Mustafa Kemal Atatürk ile birlikte Amasya’da bulunan genç bir komutansın."
+        ],
+        choices: [{ label: "Hikâyeye Başla", next: 1 }]
+      },
+      {
+        title: "Toplantının Gizliliği",
+        eyebrow: "KARAR 1",
+        text: ["Hazırlanan bildirinin öğrenilmesi büyük risk taşımaktadır."],
+        choices: [
+          { label: "Toplantıları gizli yürüt", next: 2 },
+          { label: "Daha fazla kişiyi dahil et", next: 2 }
+        ]
+      },
+      {
+        title: "Genelgenin En Güçlü Mesajı",
+        eyebrow: "KARAR 2",
+        text: ["Millete verilecek mesaj belirlenmektedir."],
+        choices: [
+          { label: "Milletin azim ve kararını merkeze al", next: 3 },
+          { label: "Dış destek umudunu öne çıkar", next: 3 }
+        ]
+      },
+      {
+        title: "Sivas Kongresi Çağrısı",
+        eyebrow: "KARAR 3",
+        text: ["Ülke çapında bir kongre toplanması önerilecektir."],
+        choices: [
+          { label: "Derhâl çağrı yap", next: 4 },
+          { label: "Bekle ve koşulları gözle", next: 4 }
+        ]
+      },
+      {
+        title: "Millî İrade Doğuyor",
+        eyebrow: "FİNAL",
+        text: [
+          "Amasya Genelgesi başarıyla yayımlanır.",
+          "Erzurum ve Sivas kongrelerinin yolu açılır.",
+          "Bir milletin kaderi, Amasya’da alınan cesur kararlarla değişti."
+        ],
+        choices: [{ label: "Yeniden Başla", next: 0 }]
+      }
+    ];
+
+    function render(index) {
+      const scene = scenes[index];
+      document.getElementById("eyebrow").innerText = scene.eyebrow;
+      document.getElementById("title").innerText = scene.title;
+      document.getElementById("text").innerHTML = scene.text.map(t => `<p>${t}</p>`).join("");
+      document.getElementById("choices").innerHTML = "";
+
+      scene.choices.forEach(choice => {
+        const btn = document.createElement("button");
+        btn.innerText = choice.label;
+        btn.onclick = () => render(choice.next);
+        document.getElementById("choices").appendChild(btn);
+      });
+    }
+
+    render(0);
+  </script>
+</body>
 </html>
