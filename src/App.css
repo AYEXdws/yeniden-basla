@@ -1,0 +1,124 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #080706;
+  color: #f3ead7;
+  font-family: "Inter", sans-serif;
+}
+
+.experience {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center, rgba(125, 82, 38, 0.22), transparent 45%),
+    linear-gradient(135deg, #090806, #1b120c 45%, #050403);
+}
+
+.grain,
+.vignette {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.grain {
+  opacity: 0.12;
+  background-image: repeating-radial-gradient(circle at 0 0, #fff 0, transparent 1px);
+  background-size: 6px 6px;
+}
+
+.vignette {
+  box-shadow: inset 0 0 180px #000;
+}
+
+.scene-card {
+  width: min(880px, 100%);
+  min-height: 540px;
+  padding: 48px;
+  position: relative;
+  z-index: 2;
+  border: 1px solid rgba(231, 199, 138, 0.26);
+  background: rgba(18, 13, 9, 0.78);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 30px 100px rgba(0, 0, 0, 0.55);
+}
+
+.eyebrow {
+  color: #d4a64f;
+  letter-spacing: 0.24em;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+h1 {
+  font-family: "Cinzel", serif;
+  font-size: clamp(34px, 6vw, 68px);
+  line-height: 1.05;
+  margin: 12px 0 24px;
+}
+
+.story-text {
+  max-width: 720px;
+  font-size: clamp(16px, 2.2vw, 20px);
+  line-height: 1.8;
+  color: #eadcc0;
+}
+
+.primary-btn,
+.choices button {
+  margin-top: 28px;
+  border: 1px solid rgba(239, 199, 118, 0.55);
+  background: rgba(207, 143, 47, 0.12);
+  color: #fff2d2;
+  padding: 15px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.primary-btn:hover,
+.choices button:hover {
+  background: rgba(207, 143, 47, 0.28);
+}
+
+.choices {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.result-box {
+  margin-top: 30px;
+  padding: 22px;
+  border-left: 4px solid #d4a64f;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.final blockquote {
+  margin: 28px 0;
+  font-family: "Cinzel", serif;
+  font-size: clamp(22px, 4vw, 36px);
+  color: #ffd98a;
+}
+
+.score {
+  color: #d4a64f;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .scene-card {
+    padding: 28px;
+    min-height: auto;
+  }
+}
